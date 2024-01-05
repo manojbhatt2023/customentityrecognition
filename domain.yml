@@ -1,0 +1,110 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - inform_preferences
+  - ask_metric
+  - ask_metric_by_location
+  - ask_metric_by_store_preference
+  - ask_metric_by_prodhier
+  - ask_metric_by_timehier
+  - describe_myself
+  - fill_form
+
+actions:
+  - utter_ask_description
+  - utter_ask_name
+  - utter_ask_roll
+  - utter_display_info
+  - action_gather_preferences
+  
+entities:
+  - timehier:
+      type: list
+  - prodhier:
+      type: list
+  - filter:
+      type: text
+  - metric:
+      type: text
+  - preference:
+      type: list
+  - name:
+      type: text
+  - roll:
+      type: text
+
+slots:
+  metric:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: metric
+  preference:
+    type: list
+    mappings:
+    - type: from_entity
+      entity: preference
+  name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: name
+  roll:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: roll
+forms:
+  introduction_form:
+    required_slots:
+        - name
+        - roll
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_no_products:
+    - text: "No products found."
+  
+  utter_database_analyze:
+    - text: "It worked!"
+  
+  utter_ask_description:
+    - text: "Ok describe yourself"
+  
+  utter_ask_name:
+    - text: "What is your name?"
+  
+  utter_ask_roll:
+    - text: "What is your roll?"
+  
+  utter_display_info:
+    - text: Your name is {name} and roll is {roll}.
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
